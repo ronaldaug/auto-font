@@ -1,2 +1,2 @@
-# auto-font
-Auto detect and convert (Zawgyi &amp; Unicode) ( Wordpress Plugin )
+# Auto-font ( Wordpress Plugin for Zawgyi and Unicode )
+### Special thanks to Knayi & Myanmar Tools developers
