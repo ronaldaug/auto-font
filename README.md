@@ -1,6 +1,6 @@
 # Auto-font ( Wordpress Plugin for Zawgyi and Unicode )
 
-    When two fonts ( Zawgyi & Unicode ) are being used in a same web page, **Auto Font** will detect and covert into a font that visitor selects.
+When two fonts ( Zawgyi & Unicode ) are being used in a same web page, **Auto Font** will detect and covert into a font that visitor selects.
 
     ### Special thanks to Knayi & Myanmar Tools developers
    Credits
