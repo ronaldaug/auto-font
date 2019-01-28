@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Auto Font
-Plugin URI:  https://unpkg.com/knayi-myscript
-Description: When Zawgyi & Unicode are in a single page, this plugin will automatically detect and convert it into the choosen font (or default font). Special thanks to Knayi and Myanmar tools developers.
+Plugin URI:  https://github.com/ronaldaug/auto-font
+Description: When Zawgyi & Unicode are in a single page, this plugin will automatically detect and convert it into the choosen font (or default font).
 Version:     1.0.0
 Author:      RonaldAug
-Author URI:  http://www.carepify.com
+Author URI:  https://github.com/ronaldaug
 License:     MIT
 */
 if ( ! defined( 'ABSPATH' ) ) {
