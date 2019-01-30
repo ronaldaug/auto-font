@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   var isOne = false;
-  var allContent = document.querySelectorAll('.entry-content p');
+  var allContent = document.querySelectorAll('.entry-content');
   var allTitle = document.querySelectorAll(".entry-title");
  function changeFonts(){
   loopContentArr(allContent,'ptag');
