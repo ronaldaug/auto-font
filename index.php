@@ -3,7 +3,7 @@
 Plugin Name: Auto Font
 Plugin URI:  https://github.com/ronaldaug/auto-font
 Description: When Zawgyi & Unicode are in a single page, this plugin will automatically detect and convert it into the choosen font (or default font).
-Version:     1.0.0
+Version:     0.0.3
 Author:      RonaldAug
 Author URI:  https://github.com/ronaldaug
 License:     MIT

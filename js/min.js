@@ -1,21 +1,30 @@
 document.addEventListener("DOMContentLoaded", function() {
   var isOne = false;
-  var detectFont = document.querySelectorAll('.entry-content p');
+  var allContent = document.querySelectorAll('.entry-content p');
+  var allTitle = document.querySelectorAll(".entry-title");
  function changeFonts(){
-  var currentFont = localStorage.getItem('current-font') || 'unicode';
-  if(!detectFont){return;}
-  for(var x=0;x<detectFont.length;x++){
-      let post_txt = detectFont[x].innerText;
-      let postHTML = detectFont[x].innerHTML;
-      if(post_txt){
-          let checkFont = knayi.fontDetect(post_txt.substring(0,30));
-          if(checkFont !== currentFont){
-              detectFont[x].innerHTML = knayi.fontConvert(postHTML, currentFont);
-          }
-      }
-  }
+  loopContentArr(allContent,'ptag');
+  loopContentArr(allTitle,'htag');
  }
- // on Change Value
+
+ // loop and change all content
+ function loopContentArr(content){
+    if(!content){return;}
+    var currentFont = localStorage.getItem('current-font') || 'unicode';
+    for(var x=0;x<content.length;x++){
+        let post_txt = content[x].innerText;
+        let postHTML = content[x].innerHTML;
+        if(post_txt){
+            let checkFont = knayi.fontDetect(post_txt.substring(0,80));
+            if(checkFont === 'en'){return;}
+            if(checkFont !== currentFont){
+                content[x].innerHTML = knayi.fontConvert(postHTML, currentFont);
+            }
+        }
+    }
+}
+
+ // Listen user selected font on Change
  var selectBox = document.querySelector("#auto-font");
  if(!selectBox){return}
  selectBox.addEventListener('change',function(e){
@@ -37,5 +46,4 @@ document.addEventListener("DOMContentLoaded", function() {
  }else{
      selectBox.value = 'uni';
  }
-
 });
