@@ -23,8 +23,8 @@ function custom_js_register() {
  */
 class auto_font_widget extends WP_Widget {
     /** constructor -- name this the same as the class above */
-    function auto_font_widget() {
-        parent::WP_Widget(false, $name = 'Auto Font - Select Box');	
+    function __construct() {
+        parent::__construct(false, $name = 'Auto Font - Select Box');	
     }
     /** @see WP_Widget::widget -- do not rename this */
     function widget($args, $instance) {	
@@ -69,4 +69,4 @@ class auto_font_widget extends WP_Widget {
         <?php 
     }
 } // end class auto_font_widget
-add_action('widgets_init', create_function('', 'return register_widget("auto_font_widget");'));
+add_action('widgets_init', function() { return register_widget("auto_font_widget"); } );
