@@ -23,11 +23,11 @@ function custom_js_register() {
  */
 class auto_font_widget extends WP_Widget {
     /** constructor -- name this the same as the class above */
-    function __construct() {
+    public function __construct() {
         parent::__construct(false, $name = 'Auto Font - Select Box');	
     }
-    /** @see WP_Widget::widget -- do not rename this */
-    function widget($args, $instance) {	
+
+    public function widget($args, $instance) {	
         $w_preTitle = isset($instance['title'])?$instance['title']:"";
         $w_preFont = isset($instance['title'])?$instance['title']:"";
         extract( $args );
@@ -43,16 +43,14 @@ class auto_font_widget extends WP_Widget {
         <?php
     }
 
-    /** @see WP_Widget::update -- do not rename this */
-    function update($new_instance, $old_instance) {		
+    public function update($new_instance, $old_instance) {		
 		$instance = $old_instance;
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['default_font'] = strip_tags($new_instance['default_font']);
         return $instance;
     }
 
-    /** @see WP_Widget::form -- do not rename this */
-    function form($instance) {	
+    public function form($instance) {	
         $preTitle = isset($instance['title'])?$instance['title']:"";
         $preFont = isset($instance['title'])?$instance['title']:"";
         $f_title 		= esc_attr($preTitle);
@@ -63,13 +61,13 @@ class auto_font_widget extends WP_Widget {
           <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $f_title; ?>" />
         </p>
 		<p>
-        <label for="<?php echo $this->get_field_id('default_font'); ?>"><?php _e('Default font'); ?></label> 
-  <select id="<?php echo $this->get_field_id('default_font'); ?>" name="<?php echo $this->get_field_name('default_font'); ?>" class="widefat" style="width:100%;">
-    <option <?php selected( $f_default_font, 'uni'); ?> value="uni">Unicode</option>
-    <option <?php selected( $f_default_font, 'zaw'); ?> value="zaw">Zawgyi</option> 
-</select>
-        </p>
-        <?php 
-}
+    <label for="<?php echo $this->get_field_id('default_font'); ?>"><?php _e('Default font'); ?></label> 
+    <select id="<?php echo $this->get_field_id('default_font'); ?>" name="<?php echo $this->get_field_name('default_font'); ?>" class="widefat" style="width:100%;">
+      <option <?php selected( $f_default_font, 'uni'); ?> value="uni">Unicode</option>
+      <option <?php selected( $f_default_font, 'zaw'); ?> value="zaw">Zawgyi</option> 
+    </select>
+    </p>
+<?php 
+      }
 } // end class auto_font_widget
 add_action('widgets_init', function() { return register_widget("auto_font_widget"); } );

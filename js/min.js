@@ -1,31 +1,36 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var isOne = false;
-    var allContent = document.querySelectorAll('.entry-content');
-    var allTitle = document.querySelectorAll(".entry-title");
+    let isOne = false;
+    const allA = document.querySelectorAll('a');
+    const allP = document.querySelectorAll('p');
+    const allH = document.querySelectorAll('h1,h2,h3,h4,h5');
+    const allG = document.querySelectorAll('span,li,td');
    function changeFonts(){
-    loopContentArr(allContent);
-    loopContentArr(allTitle);
-   }
+        loopContentArr(allA);
+        loopContentArr(allP);
+        loopContentArr(allH);
+        loopContentArr(allG);
+    }
   
    // loop and change all content
    function loopContentArr(content){
       if(!content){return;}
-      var currentFont = localStorage.getItem('current-font') || 'unicode';
-      for(var x=0;x<content.length;x++){
-          let post_txt = content[x].innerText;
-          let postHTML = content[x].innerHTML;
+      const currentFont = localStorage.getItem('current-font') || 'unicode';
+      content.forEach(e=>{
+        const post_txt = e.innerText;
+        console.log(post_txt);
+          const postHTML = e.innerHTML;
           if(post_txt){
               let checkFont = knayi.fontDetect(post_txt.substring(0,80));
               if(checkFont === 'en'){return;}
               if(checkFont !== currentFont){
-                  content[x].innerHTML = knayi.fontConvert(postHTML, currentFont);
+                 e.innerHTML = knayi.fontConvert(postHTML, currentFont);
               }
           }
-      }
-  }
+      })
+   }
   
    // Listen user selected font on Change
-   var selectBox = document.querySelector("#auto-font");
+   const selectBox = document.querySelector("#auto-font");
    if(!selectBox){return}
    selectBox.addEventListener('change',function(e){
        if(e.target.value !== 'uni'){
@@ -40,10 +45,10 @@ document.addEventListener("DOMContentLoaded", function() {
    if(!isOne){
      changeFonts();
    }
-   var currentFont = localStorage.getItem('current-font') || 'unicode';
-   if(currentFont !== 'unicode'){
-       selectBox.value = 'zaw';
-   }else{
-       selectBox.value = 'uni';
-   }
+   const currentFont = localStorage.getItem('current-font') || 'unicode';
+        if(currentFont !== 'unicode'){
+            selectBox.value = 'zaw';
+        }else{
+            selectBox.value = 'uni';
+        }
   });
