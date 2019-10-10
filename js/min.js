@@ -4,14 +4,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const allP = document.querySelectorAll('p');
     const allH = document.querySelectorAll('h1,h2,h3,h4,h5');
     const allG = document.querySelectorAll('span,li,td');
-  
+    const fontFolder = autoFont.plugin_url + '/auto-font/fonts/';
+
     // loop and change all content
     function loopContentArr(content){
       if(!content){return;}
       const currentFont = localStorage.getItem('current-font') || 'unicode';
       content.forEach(e=>{
         const post_txt = e.innerText;
-        console.log(post_txt);
           const postHTML = e.innerHTML;
           if(post_txt){
               let checkFont = knayi.fontDetect(post_txt.substring(0,80));
@@ -30,16 +30,32 @@ document.addEventListener("DOMContentLoaded", function() {
         loopContentArr(allG);
     }
 
-    function removeLS(){
-        const ls = document.createElement("style");
-        ls.id = "auto-font-style";
-        ls.innerHTML = `
-        body,p,a,h1,h2,h3,h4,h5{
-            letter-spacing:normal;
-        }`;
-        document.head.append(ls);
+    function removeEmbedFont(font){
+        const Allembed = document.querySelectorAll(`#${font}-embed`);
+        if(Allembed){
+            Allembed.forEach(embed=>{
+                embed.parentNode.removeChild(embed);
+            })
+        }
     }
-    removeLS();
+
+    function embedFont(font){
+        const ef = document.createElement("style");
+        const fontName = font == 'zawgyi'?"Zawgyi-One":"Pyidaungsu";
+        const fontFaceFallBack = font == 'zawgyi'?"'Zawgyi-One'":"'Pyidaungsu', 'Myanmar3'";
+        ef.id = `${font}-embed`;
+        ef.innerHTML = `
+            @font-face {
+                font-family:'${fontName}';
+                src:local('${fontName}'), url('${fontFolder}${font}.woff') format('woff'), url('${fontFolder}${font}.ttf') format('ttf');
+            }
+            body, p, a, h1, h2, h3, h4, h5, td{
+                letter-spacing:normal;
+                font-family: ${fontFaceFallBack};
+            }
+        `;
+        document.head.append(ef);
+    }
 
     // Listen user selected font on Change
     const selectBox = document.querySelector("#auto-font");
@@ -47,9 +63,13 @@ document.addEventListener("DOMContentLoaded", function() {
     selectBox.addEventListener('change',function(e){
         if(e.target.value !== 'uni'){
                 localStorage.setItem('current-font','zawgyi');
+                embedFont('zawgyi');
+                removeEmbedFont('pyidaungsu');
                 changeFonts();
         }else{
                 localStorage.setItem('current-font','unicode');
+                embedFont('pyidaungsu');
+                removeEmbedFont('zawgyi');
                 changeFonts();
         }
         isOne = true;
@@ -59,8 +79,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     const currentFont = localStorage.getItem('current-font') || 'unicode';
     if(currentFont !== 'unicode'){
+        embedFont('zawgyi');
         selectBox.value = 'zaw';
     }else{
+        embedFont('pyidaungsu');
         selectBox.value = 'uni';
     }
   });
