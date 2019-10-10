@@ -50,8 +50,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 src:local('${fontName}'), url('${fontFolder}${font}.woff') format('woff'), url('${fontFolder}${font}.ttf') format('ttf');
             }
             body, p, a, h1, h2, h3, h4, h5, td{
-                letter-spacing:normal;
-                font-family: ${fontFaceFallBack};
+                letter-spacing:normal !important;
+                font-family: ${fontFaceFallBack} !important;
             }
         `;
         document.head.append(ef);
